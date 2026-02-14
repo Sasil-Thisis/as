@@ -17,15 +17,30 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Envelope Styles */
+        /* 1. Flowers Backdrop */
+        #garden { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+        .flower { position: absolute; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+        .petals-container { position: relative; width: 45px; height: 45px; animation: spin var(--speed) linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .petal { position: absolute; background: var(--color); width: 16px; height: 28px; border-radius: 50% 50% 20% 20%; left: 50%; top: 50%; transform-origin: bottom center; }
+        
+        .p1 { transform: translate(-50%, -100%) rotate(0deg); } .p2 { transform: translate(-50%, -100%) rotate(45deg); }
+        .p3 { transform: translate(-50%, -100%) rotate(90deg); } .p4 { transform: translate(-50%, -100%) rotate(135deg); }
+        .p5 { transform: translate(-50%, -100%) rotate(180deg); } .p6 { transform: translate(-50%, -100%) rotate(225deg); }
+        .p7 { transform: translate(-50%, -100%) rotate(270deg); } .p8 { transform: translate(-50%, -100%) rotate(315deg); }
+        
+        .center { position: absolute; width: 10px; height: 10px; background: #ffe66d; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; }
+        .stem { width: 3px; height: 50px; background: #40916c; border-radius: 2px; margin-top: -5px; }
+
+        /* 2. Envelope UI */
         .envelope-wrapper {
             position: relative; z-index: 100; cursor: pointer;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         .envelope {
             position: relative; width: 280px; height: 180px;
             background: var(--env-dark); border-radius: 0 0 10px 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
         .envelope::before {
             content: ""; position: absolute; top: 0; left: 0;
@@ -33,64 +48,50 @@
             border-top: 100px solid var(--env-color);
             transform-origin: top; transition: transform 0.5s ease; z-index: 3;
         }
-        .vanish { opacity: 0; transform: scale(1.2); pointer-events: none; }
+        .vanish { opacity: 0; transform: scale(1.5); pointer-events: none; }
 
-        /* The Reveal Container */
+        /* 3. Revealed Content */
         #reveal-container {
             position: absolute; z-index: 50; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
-            width: 90%; text-align: center;
+            width: 90%; text-align: center; pointer-events: none;
         }
-
-        /* 1. The Image Styling */
         .mom-image {
-            width: 200px; height: 200px;
-            object-fit: cover;
-            border-radius: 50%; /* Makes it a circle */
-            border: 5px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: scale(0);
+            width: 220px; height: 220px; object-fit: cover;
+            border-radius: 50%; border: 6px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            opacity: 0; transform: scale(0);
             transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin-bottom: 20px;
         }
         .mom-image.pop { opacity: 1; transform: scale(1); }
 
-        /* 2. The Message Styling */
         .message-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 20px; border-radius: 30px; border: 2px solid white;
-            opacity: 0; transform: translateY(20px);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 25px; border-radius: 35px; border: 2px solid white;
+            opacity: 0; transform: translateY(30px);
             transition: all 1s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .message-card.show { opacity: 1; transform: translateY(0); }
 
         h1 { color: #c9184a; font-size: 1.8rem; margin: 0; }
-        p { color: #ff4d6d; font-size: 1.3rem; margin: 5px 0 0 0; }
+        p { color: #ff4d6d; font-size: 1.4rem; font-weight: bold; margin: 10px 0 0 0; }
 
-        /* Flowers and Hearts */
-        #garden { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
-        .flower { position: absolute; display: flex; flex-direction: column; align-items: center; }
-        .petals-container { position: relative; width: 40px; height: 40px; animation: spin var(--speed) linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .petal { position: absolute; background: var(--color); width: 15px; height: 25px; border-radius: 50% 50% 20% 20%; left: 50%; top: 50%; transform-origin: bottom center; }
-        .p1 { transform: translate(-50%, -100%) rotate(0deg); } .p2 { transform: translate(-50%, -100%) rotate(45deg); }
-        .p3 { transform: translate(-50%, -100%) rotate(90deg); } .p4 { transform: translate(-50%, -100%) rotate(135deg); }
-        .p5 { transform: translate(-50%, -100%) rotate(180deg); } .p6 { transform: translate(-50%, -100%) rotate(225deg); }
-        .p7 { transform: translate(-50%, -100%) rotate(270deg); } .p8 { transform: translate(-50%, -100%) rotate(315deg); }
-        .center { position: absolute; width: 10px; height: 10px; background: #ffe66d; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; }
-        .stem { width: 3px; height: 40px; background: #40916c; border-radius: 2px; margin-top: -5px; }
+        /* 4. Effects */
         .heart { position: absolute; color: #fff; font-size: 20px; top: -50px; z-index: 80; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        .tap-hint { position: absolute; bottom: -50px; width: 100%; text-align: center; color: white; font-weight: bold; }
+        .tap-hint { position: absolute; bottom: -50px; width: 100%; text-align: center; color: white; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 50% { opacity: 0.5; } }
     </style>
 </head>
 <body>
 
+    <div id="garden"></div>
+
     <div id="reveal-container">
         <img src="1.jpeg" alt="Mommieee" class="mom-image" id="momPhoto">
-        
         <div class="message-card" id="finalMessage">
             <h1>Happy Valentine's<br>Mommmieee!</h1>
             <p>iloveyouu ❤️</p>
@@ -102,41 +103,56 @@
         <div class="tap-hint">Tap for a surprise! 💌</div>
     </div>
 
-    <div id="garden"></div>
+    <audio id="valentineMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        // 1. Setup Garden
+        // Create 50 spinning flowers
         const garden = document.getElementById('garden');
         const colors = ['#ff4d6d', '#ff758f', '#ff8fa3', '#ffccd5', '#c9184a'];
-        for (let i = 0; i < 40; i++) {
+        
+        for (let i = 0; i < 50; i++) {
             const flower = document.createElement('div');
             flower.className = 'flower';
             flower.style.left = Math.random() * 100 + '%';
             flower.style.top = Math.random() * 100 + '%';
-            flower.style.transform = `scale(${0.4 + Math.random()})`;
+            flower.style.transform = `scale(${0.3 + Math.random() * 0.8})`;
+            
             const speed = 2 + Math.random() * 5;
             const color = colors[Math.floor(Math.random() * colors.length)];
-            flower.innerHTML = `<div class="petals-container" style="--speed: ${speed}s; --color: ${color}">
-                ${Array(8).fill(0).map((_, idx) => `<div class="petal p${idx+1}"></div>`).join('')}
-                <div class="center"></div></div><div class="stem"></div>`;
+            
+            flower.innerHTML = `
+                <div class="petals-container" style="--speed: ${speed}s; --color: ${color}">
+                    ${Array(8).fill(0).map((_, idx) => `<div class="petal p${idx+1}"></div>`).join('')}
+                    <div class="center"></div>
+                </div>
+                <div class="stem"></div>
+            `;
             garden.appendChild(flower);
         }
 
-        // 2. The Sequential Reveal
+        // Reveal Sequence
         function revealSecret() {
             const wrapper = document.getElementById('envelopeWrapper');
             const photo = document.getElementById('momPhoto');
             const message = document.getElementById('finalMessage');
+            const music = document.getElementById('valentineMusic');
 
-            // Vanish Envelope
+            // 1. Play Song
+            music.play().catch(e => console.log("Music blocked by browser."));
+
+            // 2. Animate Envelope away
             wrapper.classList.add('vanish');
 
+            // 3. Sequential Reveal
             setTimeout(() => {
                 wrapper.style.display = 'none';
-                // First: Image pops up
+                
+                // Show Image
                 photo.classList.add('pop');
                 
-                // Second: Message fades in 1 second later
+                // Show Message and start hearts rain
                 setTimeout(() => {
                     message.classList.add('show');
                     startHearts();
@@ -151,6 +167,7 @@
                 heart.innerHTML = '❤️';
                 heart.style.left = Math.random() * 100 + 'vw';
                 heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                heart.style.opacity = Math.random();
                 document.body.appendChild(heart);
                 setTimeout(() => heart.remove(), 5000);
             }, 300);
